@@ -1,0 +1,4 @@
+-e .
+pytest
+aws-cdk.core
+aws-cdk.aws-s3
