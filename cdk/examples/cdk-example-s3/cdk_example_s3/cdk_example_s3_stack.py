@@ -13,3 +13,5 @@ class CdkExampleS3Stack(core.Stack):
             self, "mytestbucket",
             bucket_name="mytestbucket.mydomain.com"
         )
+
+        bucket.node.find_child('Resource').cfn_options.deletion_policy = core.CfnDeletionPolicy.DELETE
