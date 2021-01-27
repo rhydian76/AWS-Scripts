@@ -47,8 +47,14 @@ elif [[ $string == *"Darwin"* ]]; then
         echo -e "${GREEN}Checking to see if NodeJS is installed...${NOCOLOUR}"
         node -v
         if [[ $? != 0 ]]; then
-            echo -e "${GREEN}Installing NodeJS...${NOCOLOUR}"
-            curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+            brew -v
+            if [[ $? == 0 ]]; then
+                echo -e "${GREEN}Installing NodeJS using Homebrew...${NOCOLOUR}"
+                brew install node
+            else
+                echo -e "${GREEN}Installing NodeJS from the web...${NOCOLOUR}"
+                curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+            fi
         fi
 else
     echo "\n${RED}Unable to detect OS Version. Terminating${RED}\n"
