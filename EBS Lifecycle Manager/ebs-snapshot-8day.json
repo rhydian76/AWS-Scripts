@@ -1,0 +1,37 @@
+{
+  "PolicyType": "EBS_SNAPSHOT_MANAGEMENT",
+  "ResourceTypes": ["INSTANCE"],
+  "TargetTags": [
+    {
+      "Key": "Backup",
+      "Value": "8"
+    }
+  ],
+  "Schedules": [
+    {
+      "Name": "Midnight-Daily",
+      "CopyTags": true,
+      "VariableTags": [
+        {
+          "Key": "SnapshotOf",
+          "Value": "$(instance-id)"
+        },
+        {
+          "Key": "Timestamp",
+          "Value": "$(timestamp)"
+        }
+      ],
+      "CreateRule": {
+        "Interval": 24,
+        "IntervalUnit": "HOURS",
+        "Times": ["00:00"]
+      },
+      "RetainRule": {
+        "Count": 8
+      }
+    }
+  ],
+  "Parameters": {
+    "ExcludeBootVolume": false
+  }
+}
