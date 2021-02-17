@@ -12,21 +12,21 @@ aws dlm create-default-role --region $REGIONS \
 for REGION in ${REGIONS[@]}
 do
     aws dlm create-lifecycle-policy --state ENABLED \
-    --description "Creditsafe EBS Snapshot Policy 8 Day Retention" \
+    --description "EBS Snapshot Policy 8 Day Retention" \
     --execution-role-arn $ROLE_ARN \
     --policy-details file://ebs-snapshot-8day.json \
     --tags Project="Data Protection" \
     --region $REGION --profile $PROFILE
 
     aws dlm create-lifecycle-policy --state ENABLED \
-    --description "Creditsafe EBS Snapshot Policy 14 Day Retention" \
+    --description "EBS Snapshot Policy 14 Day Retention" \
     --execution-role-arn $ROLE_ARN \
     --policy-details file://ebs-snapshot-14day.json \
     --tags Project="Data Protection" \
     --region $REGION --profile $PROFILE
 
     aws dlm create-lifecycle-policy --state ENABLED \
-    --description "Creditsafe EBS Snapshot Policy 30 Day Retention" \
+    --description "EBS Snapshot Policy 30 Day Retention" \
     --execution-role-arn $ROLE_ARN \
     --policy-details file://ebs-snapshot-30day.json \
     --tags Project="Data Protection" \
